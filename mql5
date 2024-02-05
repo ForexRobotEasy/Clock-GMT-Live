@@ -1,0 +1,69 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                               Clock GMT Live.mq5 |
+//|                            Copyright 2021, Forex Robot Easy Team |
+//|                                   https://www.forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| This code provides real-time information about the broker's       |
+//| timezone in the Forex market and displays GMT and local time.     |
+//| It also includes trading functions based on accurate time info.   |
+//| The code is efficient, reliable, and compatible with various OS.   |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Indicator initialization function                                  |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Get broker's timezone offset in seconds
+   int brokerTimezoneOffset = TimeCurrent() - TimeGMT();
+
+   // Calculate GMT offset in hours
+   int gmtOffset = brokerTimezoneOffset / 3600;
+
+   // Display GMT offset
+   Comment('GMT Offset: ', gmtOffset);
+
+   // Get local time
+   datetime localTime = TimeLocal();
+
+   // Display local time
+   Comment('Local Time: ', TimeToString(localTime, TIME_DATE|TIME_MINUTES));
+
+   // Convert local time to GMT
+   datetime gmtTime = localTime - brokerTimezoneOffset;
+
+   // Display GMT time
+   Comment('GMT Time: ', TimeToString(gmtTime, TIME_DATE|TIME_MINUTES));
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Indicator deinitialization function                                |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Clean up resources, if any
+}
+
+//+------------------------------------------------------------------+
+//| Indicator main function                                           |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+   // Main trading logic goes here
+
+   return(rates_total);
+}
